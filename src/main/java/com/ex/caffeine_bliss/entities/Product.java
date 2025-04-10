@@ -24,17 +24,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(updatable = false)
+    @Column(nullable = false)
     private String name;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(updatable = false)
+    @Column(nullable = false)
     private ProductCategory category;
 
-    @Column(updatable = false)
+    @Column(nullable = false)
     private double unitPrice;
 
-    @Column(name = "stock_quantity", updatable = false)
+    @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
     @CreationTimestamp

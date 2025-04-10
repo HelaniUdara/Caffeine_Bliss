@@ -40,6 +40,13 @@ public class Order {
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
 
+    public Order(Customer customer, User cashier, double totalPrice, PaymentMethod paymentMethod) {
+        this.customer = customer;
+        this.cashier = cashier;
+        this.totalPrice = totalPrice;
+        this.paymentMethod = paymentMethod;
+    }
+
     @OneToMany(mappedBy = "order")
     private Set<OrderItems> orderItems;
 

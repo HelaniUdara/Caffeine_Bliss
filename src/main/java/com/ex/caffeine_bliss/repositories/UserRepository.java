@@ -18,13 +18,13 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByEmail(String email);
 
-    List<UserDTO> findAllByActiveEquals(boolean b);
+    List<User> findAllByActiveEquals(boolean b);
 
     Page<User> findAllByActiveEquals(boolean active, Pageable pageable);
 
     int countAllByActiveEquals(boolean active);
 
-    List<UserDTO> findAllByActiveEqualsAndRoleEquals(boolean b, UserRole role);
+    List<User> findAllByActiveEqualsAndRoleEquals(boolean b, UserRole role);
 
     User findByEmail(String email);
 }

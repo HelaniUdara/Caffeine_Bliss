@@ -35,7 +35,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING) // Store enum as a string in the database
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private UserRole role;
 
     @Column(nullable = false)

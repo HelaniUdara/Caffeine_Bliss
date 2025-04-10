@@ -60,7 +60,7 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        List<UserDTO> users = userRepository.findAllByActiveEquals(true);
+        List<User> users = userRepository.findAllByActiveEquals(true);
         if(users.size() < 1){
             throw new ResourceNotFoundException("There isn't any active users in the database.");
         }else{
@@ -85,7 +85,7 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public List<UserDTO> getUsersByRole(UserRole role) {
-        List<UserDTO> users = userRepository.findAllByActiveEqualsAndRoleEquals(true, role);
+        List<User> users = userRepository.findAllByActiveEqualsAndRoleEquals(true, role);
         if(users.size() < 1){
             throw new ResourceNotFoundException("There isn't any active " + role + " users in the database.");
         }else{
@@ -96,7 +96,7 @@ public class UserServiceImpl  implements UserService {
 
     @Override
     public List<UserDTO> getAllOldUsers() {
-        List<UserDTO> users = userRepository.findAllByActiveEquals(false);
+        List<User> users = userRepository.findAllByActiveEquals(false);
         if(users.size() < 1){
             throw new ResourceNotFoundException("There isn't any retired users in the database.");
         }else{
