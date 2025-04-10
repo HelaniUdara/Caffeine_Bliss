@@ -1,27 +1,31 @@
 package com.ex.caffeine_bliss.services;
 
 import com.ex.caffeine_bliss.DTOs.UserDTO;
+import com.ex.caffeine_bliss.DTOs.paginated.PaginatedResponse;
+import com.ex.caffeine_bliss.DTOs.request.RequestAddUserDTO;
+import com.ex.caffeine_bliss.DTOs.request.RequestUpdateUserDTO;
+import com.ex.caffeine_bliss.entities.enums.UserRole;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
-    UserDTO addCashier(UserDTO userDTO);
+    String addUser(RequestAddUserDTO userDTO);
 
-    UserDTO addAdminUser(UserDTO userDTO);
+    UserDTO updateUser(RequestUpdateUserDTO userDTO);
 
-    UserDTO updateCashier(UserDTO userDTO);
+    List<UserDTO> getAllUsers();
 
-    List<UserDTO> getAllCashiers();
+    PaginatedResponse<UserDTO> getLimitedUsers(boolean active, int page, int limit);
 
-    List<UserDTO> getAllAdmins();
+    List<UserDTO> getUsersByRole(UserRole role);
 
-    List<UserDTO> getAllOldEmployees();
+    List<UserDTO> getAllOldUsers();
 
     String deactivateUser(UUID id);
 
     UserDTO getUserById(UUID id);
 
-    UserDTO getUserByEmail(UUID id);
+    UserDTO getUserByEmail(String email);
 
 }

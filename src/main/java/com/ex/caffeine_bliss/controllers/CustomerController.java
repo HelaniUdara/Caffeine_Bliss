@@ -61,8 +61,8 @@ public class CustomerController {
     public ResponseEntity<StandardResponse> createCustomer(@RequestBody RequestAddCustomerDTO customerDTO){
         String message = customerService.createCustomer(customerDTO);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(200, "SUCCESS",
-                        message), HttpStatus.OK);
+                new StandardResponse(201, "SUCCESS",
+                        message), HttpStatus.CREATED);
     }
 
     @PostMapping(path = "/update")

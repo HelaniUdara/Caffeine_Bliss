@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Table(name = "products")
@@ -31,7 +32,7 @@ public class Product {
     private ProductCategory category;
 
     @Column(updatable = false)
-    private double price;
+    private double unitPrice;
 
     @Column(name = "stock_quantity", updatable = false)
     private int stockQuantity;
@@ -43,4 +44,7 @@ public class Product {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    @OneToMany(mappedBy = "product")
+    private Set<OrderItems> orderItems;
 }

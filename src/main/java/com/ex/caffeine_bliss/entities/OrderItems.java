@@ -34,5 +34,5 @@ public class OrderItems {
     private int quantity;
 
     @Column(nullable = false)
-    private double price;
+    private double amount;
 }

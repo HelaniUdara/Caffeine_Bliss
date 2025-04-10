@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Table(name = "customers")
@@ -32,4 +33,7 @@ public class Customer {
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders;
 }

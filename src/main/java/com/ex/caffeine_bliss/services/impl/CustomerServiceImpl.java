@@ -49,10 +49,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String createCustomer(RequestAddCustomerDTO customerDTO) {
-
-        if(customerRepository.existsByMobileNo(customerDTO.getMobileNo())){
+        if (customerRepository.existsByMobileNo(customerDTO.getMobileNo())) {
             throw new DuplicateElementException("Mobile number already registered!");
-        }else{
+        } else {
             Customer customer = modelMapper.map(customerDTO, Customer.class);
             customerRepository.save(customer);
             return "Added customer " + customerDTO.getName();
