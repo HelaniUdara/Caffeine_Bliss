@@ -2,6 +2,7 @@ package com.ex.caffeine_bliss.controllers;
 
 import com.ex.caffeine_bliss.DTOs.paginated.PaginatedResponse;
 import com.ex.caffeine_bliss.DTOs.request.RequestSaveOrderDTO;
+import com.ex.caffeine_bliss.DTOs.response.ResponseOrderDetailsDTO;
 import com.ex.caffeine_bliss.DTOs.response.ResponseOrderSummaryDTO;
 import com.ex.caffeine_bliss.services.OrderService;
 import com.ex.caffeine_bliss.utils.StandardResponse;
@@ -41,6 +42,26 @@ public class OrderController {
     ){
         if(limit > 20){ limit = 20; }
         PaginatedResponse<ResponseOrderSummaryDTO> orders = orderService.getOrdersByCashierId(cashierId, page, limit);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "SUCCESS",
+                        orders), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getOrderDetails", params = "id")
+    public ResponseEntity<StandardResponse> getOrderDetailsById(@RequestParam(value = "id") UUID id){
+        ResponseOrderDetailsDTO orderDetails = orderService.getOrdersDetailsById(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "SUCCESS",
+                        orderDetails), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getAllOrders", params = {"page", "limit"})
+    public ResponseEntity<StandardResponse> getAllOrders(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit
+    ){
+        if(limit > 20){ limit = 20; }
+        PaginatedResponse<ResponseOrderSummaryDTO> orders = orderService.getAllOrders(page, limit);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "SUCCESS",
                         orders), HttpStatus.OK);
