@@ -1,17 +1,24 @@
 package com.ex.caffeine_bliss.services.impl;
 
+import com.ex.caffeine_bliss.DTOs.paginated.PaginatedResponse;
+import com.ex.caffeine_bliss.DTOs.quesryInterfaces.OrderSummaryInterface;
 import com.ex.caffeine_bliss.DTOs.request.RequestSaveOrderDTO;
+import com.ex.caffeine_bliss.DTOs.response.ResponseOrderSummaryDTO;
 import com.ex.caffeine_bliss.entities.Order;
 import com.ex.caffeine_bliss.entities.OrderItems;
+import com.ex.caffeine_bliss.exceptions.ResourceNotFoundException;
 import com.ex.caffeine_bliss.repositories.*;
 import com.ex.caffeine_bliss.services.OrderService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -60,5 +67,43 @@ public class OrderServiceImpl implements OrderService {
             return "Order Saved.";
         }
         return "Order Failed";
+    }
+
+    @Override
+    public PaginatedResponse<ResponseOrderSummaryDTO> getOrdersByCustomerId(UUID customerId, int page, int limit) {
+        List<OrderSummaryInterface> orderSummaryInterfaces = orderRepository.getAllOrderSummariesByCustomer(
+                customerId, PageRequest.of(page, limit));
+        if(orderSummaryInterfaces.size() < 1){
+            throw new ResourceNotFoundException("There aren't orders according to the request.");
+        }else{
+            List<ResponseOrderSummaryDTO> orderList = new ArrayList<>();
+            for (OrderSummaryInterface o : orderSummaryInterfaces) {
+                orderList.add(
+                        new ResponseOrderSummaryDTO(UUID.fromString(o.getId()), o.getCreatedAt(), o.getPaymentMethod(),
+                                o.getTotalPrice(), o.getCustomerName(), o.getCashierName())
+                );
+            }
+            int totalCount = orderRepository.countAllOrderSummariesByCustomer(customerId);
+            return new PaginatedResponse<ResponseOrderSummaryDTO>(orderList, page, limit, totalCount);
+        }
+    }
+
+    @Override
+    public PaginatedResponse<ResponseOrderSummaryDTO> getOrdersByCashierId(UUID cashierId, int page, int limit) {
+        List<OrderSummaryInterface> orderSummaryInterfaces = orderRepository.getAllOrderSummariesByCashier(
+                cashierId, PageRequest.of(page, limit));
+        if(orderSummaryInterfaces.size() < 1){
+            throw new ResourceNotFoundException("There aren't orders according to the request.");
+        }else{
+            List<ResponseOrderSummaryDTO> orderList = new ArrayList<>();
+            for (OrderSummaryInterface o : orderSummaryInterfaces) {
+                orderList.add(
+                        new ResponseOrderSummaryDTO(UUID.fromString(o.getId()), o.getCreatedAt(), o.getPaymentMethod(),
+                                o.getTotalPrice(), o.getCustomerName(), o.getCashierName())
+                );
+            }
+            int totalCount = orderRepository.countAllOrderSummariesByCashier(cashierId);
+            return new PaginatedResponse<ResponseOrderSummaryDTO>(orderList, page, limit, totalCount);
+        }
     }
 }
