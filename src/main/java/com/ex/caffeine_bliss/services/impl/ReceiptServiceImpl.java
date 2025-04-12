@@ -2,8 +2,9 @@ package com.ex.caffeine_bliss.services.impl;
 
 import com.ex.caffeine_bliss.DTOs.ReceiptDTO;
 import com.ex.caffeine_bliss.DTOs.ReceiptEmailDTO;
-import com.ex.caffeine_bliss.DTOs.UserDTO;
+import com.ex.caffeine_bliss.DTOs.quesryInterfaces.ReceiptDetailInterface;
 import com.ex.caffeine_bliss.DTOs.response.ResponseOrderDetailsDTO;
+import com.ex.caffeine_bliss.DTOs.response.ResponseReceiptDetailsDTO;
 import com.ex.caffeine_bliss.entities.Order;
 import com.ex.caffeine_bliss.entities.Receipt;
 import com.ex.caffeine_bliss.exceptions.DuplicateElementException;
@@ -96,22 +97,28 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     @Override
-    public ReceiptDTO getReceiptById(UUID id) {
-        Receipt receipt = receiptRepository.getReferenceById(id);
-        if(receipt != null){
-            return modelMapper.map(receipt, ReceiptDTO.class);
-        }else {
+    public ResponseReceiptDetailsDTO getReceiptById(UUID id) {
+        ReceiptDetailInterface receiptDetails = receiptRepository.findByReceiptId(id);
+        if(receiptDetails == null){
             throw new ResourceNotFoundException("There is no receipt with Id: " + id);
+        }else {
+            return new ResponseReceiptDetailsDTO(
+                    receiptDetails.getReceiptId(), receiptDetails.getOrderId(), receiptDetails.getCustomerEmail(),
+                    receiptDetails.getSentAt()
+            );
         }
     }
 
     @Override
-    public ReceiptDTO getReceiptByOrderId(UUID orderId) {
-        Receipt receipt = receiptRepository.findByOrder_Id(orderId);
-        if(receipt != null){
-            return modelMapper.map(receipt, ReceiptDTO.class);
-        }else {
+    public ResponseReceiptDetailsDTO getReceiptByOrderId(UUID orderId) {
+        ReceiptDetailInterface receiptDetails = receiptRepository.findByOrderId(orderId);
+        if(receiptDetails == null){
             throw new ResourceNotFoundException("There is no receipt with Order Id: " + orderId);
+        }else {
+            return new ResponseReceiptDetailsDTO(
+                    receiptDetails.getReceiptId(), receiptDetails.getOrderId(), receiptDetails.getCustomerEmail(),
+                    receiptDetails.getSentAt()
+            );
         }
     }
 }

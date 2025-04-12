@@ -1,13 +1,14 @@
 package com.ex.caffeine_bliss.services;
 
 import com.ex.caffeine_bliss.DTOs.ReceiptDTO;
+import com.ex.caffeine_bliss.DTOs.response.ResponseReceiptDetailsDTO;
 
 import java.util.UUID;
 
 public interface ReceiptService {
     ReceiptDTO sentReceiptEmail(UUID orderId);
 
-    ReceiptDTO getReceiptById(UUID id);
+    ResponseReceiptDetailsDTO getReceiptById(UUID id);
 
-    ReceiptDTO getReceiptByOrderId(UUID orderId);
+    ResponseReceiptDetailsDTO getReceiptByOrderId(UUID orderId);
 }

@@ -2,6 +2,7 @@ package com.ex.caffeine_bliss.controllers;
 
 import com.ex.caffeine_bliss.DTOs.ReceiptDTO;
 import com.ex.caffeine_bliss.DTOs.UserDTO;
+import com.ex.caffeine_bliss.DTOs.response.ResponseReceiptDetailsDTO;
 import com.ex.caffeine_bliss.services.ReceiptService;
 import com.ex.caffeine_bliss.utils.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ReceiptController {
 
     @GetMapping(path = "/getById", params = "id")
     public ResponseEntity<StandardResponse> getReceiptById(@RequestParam(value = "id") UUID id){
-        ReceiptDTO receiptDTO = receiptService.getReceiptById(id);
+        ResponseReceiptDetailsDTO receiptDTO = receiptService.getReceiptById(id);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "SUCCESS",
                         receiptDTO), HttpStatus.OK);
@@ -28,7 +29,7 @@ public class ReceiptController {
 
     @GetMapping(path = "/getByOrderId", params = "id")
     public ResponseEntity<StandardResponse> getReceiptByOrderId(@RequestParam(value = "id") UUID orderId){
-        ReceiptDTO receiptDTO = receiptService.getReceiptByOrderId(orderId);
+        ResponseReceiptDetailsDTO receiptDTO = receiptService.getReceiptByOrderId(orderId);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "SUCCESS",
                         receiptDTO), HttpStatus.OK);

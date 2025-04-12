@@ -10,6 +10,7 @@ import com.ex.caffeine_bliss.DTOs.response.ResponseOrderItemDTO;
 import com.ex.caffeine_bliss.DTOs.response.ResponseOrderSummaryDTO;
 import com.ex.caffeine_bliss.entities.Order;
 import com.ex.caffeine_bliss.entities.OrderItems;
+import com.ex.caffeine_bliss.entities.Product;
 import com.ex.caffeine_bliss.exceptions.ResourceNotFoundException;
 import com.ex.caffeine_bliss.repositories.*;
 import com.ex.caffeine_bliss.services.OrderService;
@@ -62,8 +63,11 @@ public class OrderServiceImpl implements OrderService {
             }.getType());
             for (int i = 0; i < orderItems.size(); i++) {
                 orderItems.get(i).setOrder(order);
-                orderItems.get(i).setProduct(productRepository.getReferenceById(saveOrderDTO.getOrderItems().get(i)
-                        .getProduct()));
+                Product product = productRepository.getReferenceById(saveOrderDTO.getOrderItems().get(i)
+                        .getProduct());
+                orderItems.get(i).setProduct(product);
+                product.setStockQuantity(product.getStockQuantity()-saveOrderDTO.getOrderItems().get(i).getQuantity());
+                productRepository.save(product);
             }
             if (orderItems.size() > 0) {
                 orderItemRepository.saveAll(orderItems);
