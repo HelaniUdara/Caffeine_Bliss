@@ -1,22 +1,21 @@
-package com.ex.caffeine_bliss.DTOs.response;
+package com.ex.caffeine_bliss.DTOs;
 
+import com.ex.caffeine_bliss.DTOs.response.ResponseOrderItemDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseOrderDetailsDTO {
-    private UUID orderId;
-    private Date createdAt;
+public class ReceiptEmailDTO {
+    private String receiptId;
+    private String orderId;
     private String customerName;
     private String customerMobile;
-    private String customerEmail;
+    private String createdAt;
     private double totalAmount;
     private List<ResponseOrderItemDTO> items;
 }

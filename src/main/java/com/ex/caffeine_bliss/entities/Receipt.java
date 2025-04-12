@@ -30,6 +30,11 @@ public class Receipt {
     private String email;
 
     @CreationTimestamp
-    @Column(updatable = false, name = "sent_at")
+    @Column(name = "sent_at")
     private Date sentAt;
+
+    public Receipt(Order order, String email) {
+        this.order = order;
+        this.email = email;
+    }
 }

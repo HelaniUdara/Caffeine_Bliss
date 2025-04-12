@@ -10,4 +10,7 @@ import java.util.UUID;
 @Repository
 @EnableJpaRepositories
 public interface ReceiptRepository extends JpaRepository<Receipt, UUID> {
+    boolean existsByOrder_Id(UUID orderId);
+
+    Receipt findByOrder_Id(UUID orderId);
 }

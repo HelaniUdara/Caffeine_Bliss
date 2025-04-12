@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Receipt</title>
+</head>
+<body style="font-family: Arial, sans-serif; color: #333;">
+<img th:src="@{cid:header}" alt="Header" style="width:100%;">
+
+<div style="padding: 20px;">
+    <h2>Thank you for your order!</h2>
+    <p><strong>Receipt ID:</strong> <span th:text="${receiptId}"></span></p>
+    <p><strong>Customer:</strong> <span th:text="${customerName}"></span></p>
+    <p><strong>Mobile:</strong> <span th:text="${customerMobile}"></span></p>
+    <p><strong>Order ID:</strong> <span th:text="${orderId}"></span></p>
+    <p><strong>Date:</strong> <span th:text="${createdAt}"></span></p>
+
+    <table style="width:100%; border-collapse: collapse;" border="1" cellpadding="5">
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Unit Price</th>
+            <th>Qty</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.productName}">Item Name</td>
+            <td th:text="${item.unitPrice}">0.00</td>
+            <td th:text="${item.quantity}">1</td>
+            <td th:text="${item.amount}">0.00</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Total: Rs. <span th:text="${totalAmount}"></span></h3>
+    <p>We hope to see you again soon!</p>
+</div>
+
+<img th:src="@{cid:footer}" alt="Footer" style="width:100%;">
+</body>
+</html>

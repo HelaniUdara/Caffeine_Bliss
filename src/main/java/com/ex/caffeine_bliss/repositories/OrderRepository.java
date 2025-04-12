@@ -81,7 +81,8 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
             o.created_at AS createdAt,
             o.total_price AS totalPrice,
             c.name AS customerName,
-            c.mobile_no as customerMobile
+            c.mobile_no as customerMobile,
+            c.email as customerEmail
         FROM orders o
         JOIN customers c ON o.customer_id = c.customer_id
         WHERE o.id = ?1
@@ -99,4 +100,6 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
         WHERE oi.order_id = ?1
         """, nativeQuery = true)
     List<OrderItemDetailInterface> getOrderItemsByOrderId(UUID id);
+
+    Order getOrderById(UUID id);
 }

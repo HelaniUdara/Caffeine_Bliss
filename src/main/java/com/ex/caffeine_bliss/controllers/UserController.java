@@ -1,11 +1,8 @@
 package com.ex.caffeine_bliss.controllers;
 
-import com.ex.caffeine_bliss.DTOs.CustomerDTO;
 import com.ex.caffeine_bliss.DTOs.UserDTO;
 import com.ex.caffeine_bliss.DTOs.paginated.PaginatedResponse;
-import com.ex.caffeine_bliss.DTOs.request.RequestAddCustomerDTO;
 import com.ex.caffeine_bliss.DTOs.request.RequestAddUserDTO;
-import com.ex.caffeine_bliss.DTOs.request.RequestUpdateCustomerDTO;
 import com.ex.caffeine_bliss.DTOs.request.RequestUpdateUserDTO;
 import com.ex.caffeine_bliss.entities.enums.UserRole;
 import com.ex.caffeine_bliss.services.UserService;

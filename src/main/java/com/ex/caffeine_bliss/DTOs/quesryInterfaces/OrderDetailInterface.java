@@ -9,4 +9,5 @@ public interface OrderDetailInterface {
     double getTotalPrice();
     String getCustomerName();
     String getCustomerMobile();
+    String getCustomerEmail();
 }

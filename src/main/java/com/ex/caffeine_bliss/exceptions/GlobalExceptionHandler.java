@@ -23,4 +23,11 @@ public class GlobalExceptionHandler {
                 new StandardResponse(409, "ERROR",
                         ex.getMessage()), HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(MessagingException.class)
+    public ResponseEntity<StandardResponse> handleMessagingException(MessagingException ex) {
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(417, "ERROR",
+                        ex.getMessage()), HttpStatus.EXPECTATION_FAILED);
+    }
 }

@@ -147,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
                 }
                 return new ResponseOrderDetailsDTO(
                         orderDetails.getOrderId(), orderDetails.getCreatedAt(), orderDetails.getCustomerName(),
-                        orderDetails.getCustomerMobile(), orderDetails.getTotalPrice(), orderItemsList
+                        orderDetails.getCustomerMobile(), orderDetails.getCustomerEmail(), orderDetails.getTotalPrice(), orderItemsList
                 );
             }
         }
