@@ -3,6 +3,7 @@ package com.ex.caffeine_bliss.services;
 import com.ex.caffeine_bliss.DTOs.UserDTO;
 import com.ex.caffeine_bliss.DTOs.paginated.PaginatedResponse;
 import com.ex.caffeine_bliss.DTOs.request.RequestAddUserDTO;
+import com.ex.caffeine_bliss.DTOs.request.RequestResetPasswordDTO;
 import com.ex.caffeine_bliss.DTOs.request.RequestUpdateUserDTO;
 import com.ex.caffeine_bliss.entities.enums.UserRole;
 
@@ -28,4 +29,5 @@ public interface UserService {
 
     UserDTO getUserByEmail(String email);
 
+    String resetPassword(RequestResetPasswordDTO dto);
 }

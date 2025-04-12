@@ -3,6 +3,7 @@ package com.ex.caffeine_bliss.controllers;
 import com.ex.caffeine_bliss.DTOs.UserDTO;
 import com.ex.caffeine_bliss.DTOs.paginated.PaginatedResponse;
 import com.ex.caffeine_bliss.DTOs.request.RequestAddUserDTO;
+import com.ex.caffeine_bliss.DTOs.request.RequestResetPasswordDTO;
 import com.ex.caffeine_bliss.DTOs.request.RequestUpdateUserDTO;
 import com.ex.caffeine_bliss.entities.enums.UserRole;
 import com.ex.caffeine_bliss.services.UserService;
@@ -97,4 +98,13 @@ public class UserController {
                 new StandardResponse(200, "SUCCESS",
                         message), HttpStatus.OK);
     }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<StandardResponse> resetPassword(@RequestBody RequestResetPasswordDTO dto) {
+        String message = userService.resetPassword(dto);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "SUCCESS",
+                        message), HttpStatus.OK);
+    }
+
 }

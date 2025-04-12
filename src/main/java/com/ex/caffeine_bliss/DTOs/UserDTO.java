@@ -19,6 +19,7 @@ public class UserDTO {
     private String password;
     private UserRole role;
     private boolean active;
+    private boolean needsPasswordReset;
     private Date createdAt;
     private Date updatedAt;
 }

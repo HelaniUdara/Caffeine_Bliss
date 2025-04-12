@@ -1,6 +1,5 @@
 package com.ex.caffeine_bliss.DTOs.request;
 
-import com.ex.caffeine_bliss.entities.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestAddUserDTO {
-    private String firstName;
-    private String lastName;
+public class RequestResetPasswordDTO {
     private String email;
-    private String password;
-    private UserRole role;
+    private String oldPassword;
+    private String newPassword;
 }

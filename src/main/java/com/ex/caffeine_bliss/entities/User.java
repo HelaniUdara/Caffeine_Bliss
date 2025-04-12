@@ -39,7 +39,10 @@ public class User {
     private UserRole role;
 
     @Column(nullable = false)
-    private boolean active;
+    private boolean active = true;
+
+    @Column(name = "needs_password_reset")
+    private boolean needsPasswordReset = true;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")

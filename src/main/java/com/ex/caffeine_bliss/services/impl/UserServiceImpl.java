@@ -1,11 +1,10 @@
 package com.ex.caffeine_bliss.services.impl;
 
-import com.ex.caffeine_bliss.DTOs.CustomerDTO;
 import com.ex.caffeine_bliss.DTOs.UserDTO;
 import com.ex.caffeine_bliss.DTOs.paginated.PaginatedResponse;
 import com.ex.caffeine_bliss.DTOs.request.RequestAddUserDTO;
+import com.ex.caffeine_bliss.DTOs.request.RequestResetPasswordDTO;
 import com.ex.caffeine_bliss.DTOs.request.RequestUpdateUserDTO;
-import com.ex.caffeine_bliss.entities.Customer;
 import com.ex.caffeine_bliss.entities.User;
 import com.ex.caffeine_bliss.entities.enums.UserRole;
 import com.ex.caffeine_bliss.exceptions.DuplicateElementException;
@@ -135,5 +134,20 @@ public class UserServiceImpl  implements UserService {
         }else {
             throw new ResourceNotFoundException("This email does not exists");
         }
+    }
+
+    @Override
+    public String resetPassword(RequestResetPasswordDTO dto) {
+        User user = userRepository.findByEmail(dto.getEmail());
+        if (user == null) {
+            throw new ResourceNotFoundException("This user is not registered!");
+        }
+        if (!dto.getOldPassword().equals(user.getPassword())) {
+            throw new ResourceNotFoundException("Current password is incorrect.");
+        }
+        user.setPassword(dto.getNewPassword());
+        user.setNeedsPasswordReset(false);
+        userRepository.save(user);
+        return "Password has been reset successfully for " + user.getFirstName();
     }
 }
