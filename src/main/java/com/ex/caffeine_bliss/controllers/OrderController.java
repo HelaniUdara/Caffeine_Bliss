@@ -21,7 +21,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping(value = "/getOrdersByCustomer", params = {"customerId", "page", "limit"})
+    @GetMapping(value = "/get-orders-by-customer", params = {"customerId", "page", "limit"})
     public ResponseEntity<StandardResponse> getOrdersByCustomer(
             @RequestParam(value = "customerId") UUID customerId,
             @RequestParam(defaultValue = "0") int page,
@@ -34,7 +34,7 @@ public class OrderController {
                         orders), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getOrdersByCashier", params = {"cashierId", "page", "limit"})
+    @GetMapping(value = "/get-orders-by-cashier", params = {"cashierId", "page", "limit"})
     public ResponseEntity<StandardResponse> getOrdersByCashier(
             @RequestParam(value = "cashierId") UUID cashierId,
             @RequestParam(defaultValue = "0") int page,
@@ -47,7 +47,7 @@ public class OrderController {
                         orders), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getOrderDetails", params = "id")
+    @GetMapping(value = "/get-order-details", params = "id")
     public ResponseEntity<StandardResponse> getOrderDetailsById(@RequestParam(value = "id") UUID id){
         ResponseOrderDetailsDTO orderDetails = orderService.getOrdersDetailsById(id);
         return new ResponseEntity<StandardResponse>(
@@ -55,7 +55,7 @@ public class OrderController {
                         orderDetails), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getAllOrders", params = {"page", "limit"})
+    @GetMapping(value = "/ad/get-all-orders", params = {"page", "limit"})
     public ResponseEntity<StandardResponse> getAllOrders(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int limit

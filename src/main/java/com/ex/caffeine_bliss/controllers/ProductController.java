@@ -26,7 +26,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping(path = "/getById", params = "id")
+    @GetMapping(path = "/get-by-Id", params = "id")
     public ResponseEntity<StandardResponse> getProductById(@RequestParam(value = "id") UUID id) {
         ProductDTO productDTO = productService.getProductById(id);
         return new ResponseEntity<StandardResponse>(
@@ -34,7 +34,7 @@ public class ProductController {
                         productDTO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getByName", params = "name")
+    @GetMapping(path = "/get-by-name", params = "name")
     public ResponseEntity<StandardResponse> getProductByName(@RequestParam(value = "name") String name){
         ProductDTO productDTO = productService.getProductByName(name);
         return new ResponseEntity<StandardResponse>(
@@ -42,15 +42,15 @@ public class ProductController {
                         productDTO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getByCategory")
-    public ResponseEntity<StandardResponse> getProductsByCategory(ProductCategory category){
+    @GetMapping(path = "/get-by-category", params = "category")
+    public ResponseEntity<StandardResponse> getProductsByCategory(@RequestParam(value = "category") ProductCategory category){
         List<ProductDTO> products = productService.getProductsByCategory(category);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "SUCCESS",
                         products), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getAllProducts")
+    @GetMapping(path = "/get-all-products")
     public ResponseEntity<StandardResponse> getAllProducts(){
         List<ProductDTO> products = productService.getAllProducts();
         return new ResponseEntity<StandardResponse>(
@@ -58,7 +58,7 @@ public class ProductController {
                         products), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getLimitedProducts", params = {"page", "limit"})
+    @GetMapping(path = "/get-limited-products", params = {"page", "limit"})
     public ResponseEntity<StandardResponse> getLimitedProducts(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit
@@ -70,7 +70,7 @@ public class ProductController {
                         productList), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/add")
+    @PostMapping(path = "/ad/add")
     public ResponseEntity<StandardResponse> addProduct(@RequestBody RequestAddProductDTO productDTO){
         String message = productService.addProduct(productDTO);
         return new ResponseEntity<StandardResponse>(
@@ -78,7 +78,7 @@ public class ProductController {
                         message), HttpStatus.CREATED);
     }
 
-    @PostMapping(path = "/update")
+    @PostMapping(path = "/ad/update")
     public ResponseEntity<StandardResponse> updateCustomer(@RequestBody RequestUpdateProductDTO productDTO){
         ProductDTO product = productService.updateProduct(productDTO);
         return new ResponseEntity<StandardResponse>(
@@ -86,7 +86,7 @@ public class ProductController {
                         product), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/deleteById", params = "id")
+    @DeleteMapping(path = "/ad/delete-by-Id", params = "id")
     public ResponseEntity<StandardResponse> deleteProductById(@RequestParam(value = "id") UUID id) {
         String message = productService.deleteProductById(id);
         return new ResponseEntity<StandardResponse>(

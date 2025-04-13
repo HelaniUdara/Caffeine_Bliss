@@ -21,7 +21,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping(path = "/getByMobile", params = "mobileNo")
+    @GetMapping(path = "/get-by-mobile", params = "mobileNo")
     public ResponseEntity<StandardResponse> getCustomerByMobile(@RequestParam(value = "mobileNo") String mobileNo) {
         CustomerDTO customerDTO = customerService.findByMobileNumber(mobileNo);
         return new ResponseEntity<StandardResponse>(
@@ -29,7 +29,7 @@ public class CustomerController {
                         customerDTO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getByName", params = "name")
+    @GetMapping(path = "/get-by-name", params = "name")
     public ResponseEntity<StandardResponse> getCustomerByName(@RequestParam(value = "name") String name){
         CustomerDTO customerDTO = customerService.findByName(name);
         return new ResponseEntity<StandardResponse>(
@@ -37,7 +37,7 @@ public class CustomerController {
                         customerDTO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getAllCustomers")
+    @GetMapping(path = "/get-all-customers")
     public ResponseEntity<StandardResponse> getAllCustomers(){
         List<CustomerDTO> customers = customerService.getAllCustomers();
         return new ResponseEntity<StandardResponse>(
@@ -45,7 +45,7 @@ public class CustomerController {
                         customers), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getLimitedCustomers", params = {"page", "limit"})
+    @GetMapping(path = "/get-limited-customers", params = {"page", "limit"})
     public ResponseEntity<StandardResponse> getLimitedCustomers(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit

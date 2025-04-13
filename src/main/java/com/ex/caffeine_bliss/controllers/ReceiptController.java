@@ -19,7 +19,7 @@ public class ReceiptController {
     @Autowired
     private ReceiptService receiptService;
 
-    @GetMapping(path = "/getById", params = "id")
+    @GetMapping(path = "/get-by-Id", params = "id")
     public ResponseEntity<StandardResponse> getReceiptById(@RequestParam(value = "id") UUID id){
         ResponseReceiptDetailsDTO receiptDTO = receiptService.getReceiptById(id);
         return new ResponseEntity<StandardResponse>(
@@ -27,7 +27,7 @@ public class ReceiptController {
                         receiptDTO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getByOrderId", params = "id")
+    @GetMapping(path = "/get-by-orderId", params = "id")
     public ResponseEntity<StandardResponse> getReceiptByOrderId(@RequestParam(value = "id") UUID orderId){
         ResponseReceiptDetailsDTO receiptDTO = receiptService.getReceiptByOrderId(orderId);
         return new ResponseEntity<StandardResponse>(
@@ -35,7 +35,7 @@ public class ReceiptController {
                         receiptDTO), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/sentEmail", params = "id")
+    @PostMapping(path = "/sent-email", params = "id")
     public ResponseEntity<StandardResponse> sendReceiptEmail(@RequestParam(value = "id") UUID orderId){
         ReceiptDTO receipt = receiptService.sentReceiptEmail(orderId);
         String message = (receipt != null) ? "Receipt sent!" : "Receipt did not recorded.";

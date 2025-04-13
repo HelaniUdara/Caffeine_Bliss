@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(path = "/getById", params = "id")
+    @GetMapping(path = "/ad/get-by-Id", params = "id")
     public ResponseEntity<StandardResponse> getUserById(@RequestParam(value = "id") UUID id){
         UserDTO userDTO = userService.getUserById(id);
         return new ResponseEntity<StandardResponse>(
@@ -31,7 +31,7 @@ public class UserController {
                         userDTO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getByEmail", params = "email")
+    @GetMapping(path = "/ad/get-by-email", params = "email")
     public ResponseEntity<StandardResponse> getUserByEmail(@RequestParam(value = "email") String email){
         UserDTO userDTO = userService.getUserByEmail(email);
         return new ResponseEntity<StandardResponse>(
@@ -39,7 +39,7 @@ public class UserController {
                         userDTO), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getAllUsers")
+    @GetMapping(path = "/ad/get-all-users")
     public ResponseEntity<StandardResponse> getAllUsers(){
         List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<StandardResponse>(
@@ -47,7 +47,7 @@ public class UserController {
                         users), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getLimitedUsers", params = {"page", "limit"})
+    @GetMapping(path = "/ad/get-limited-users", params = {"page", "limit"})
     public ResponseEntity<StandardResponse> getLimitedUsers(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit
@@ -59,7 +59,7 @@ public class UserController {
                         userList), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getUsersByRole", params = "role")
+    @GetMapping(path = "/ad/get-users-by-role", params = "role")
     public ResponseEntity<StandardResponse> getUsersByRole(@RequestParam(value = "role") UserRole role){
         List<UserDTO> users = userService.getUsersByRole(role);
         return new ResponseEntity<StandardResponse>(
@@ -67,7 +67,7 @@ public class UserController {
                         users), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/getOldUsers")
+    @GetMapping(path = "/ad/get-old-users")
     public ResponseEntity<StandardResponse> getOldUsers(){
         List<UserDTO> users = userService.getAllOldUsers();
         return new ResponseEntity<StandardResponse>(
@@ -75,7 +75,7 @@ public class UserController {
                         users), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/add")
+    @PostMapping(path = "/ad/add")
     public ResponseEntity<StandardResponse> createUser(@RequestBody RequestAddUserDTO userDTO){
         String message = userService.addUser(userDTO);
         return new ResponseEntity<StandardResponse>(
@@ -83,7 +83,7 @@ public class UserController {
                         message), HttpStatus.CREATED);
     }
 
-    @PostMapping(path = "/update")
+    @PostMapping(path = "/ad/update")
     public ResponseEntity<StandardResponse> updateCustomer(@RequestBody RequestUpdateUserDTO userDTO){
         UserDTO user = userService.updateUser(userDTO);
         return new ResponseEntity<StandardResponse>(
@@ -91,7 +91,7 @@ public class UserController {
                         user), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/deactivate", params = "id")
+    @PostMapping(path = "/ad/deactivate", params = "id")
     public ResponseEntity<StandardResponse> deactivateUser(@RequestParam(value = "id") UUID id){
         String message = userService.deactivateUser(id);
         return new ResponseEntity<StandardResponse>(

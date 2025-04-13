@@ -16,6 +16,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,12 +32,16 @@ public class UserServiceImpl  implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public String addUser(RequestAddUserDTO userDTO) {
         if (userRepository.existsByEmail(userDTO.getEmail())) {
             throw new DuplicateElementException("This email is already registered!");
         } else {
             User user = modelMapper.map(userDTO, User.class);
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             userRepository.save(user);
             return "Added user " + userDTO.getFirstName();
         }
@@ -49,7 +54,6 @@ public class UserServiceImpl  implements UserService {
             user.setFirstName(userDTO.getFirstName());
             user.setLastName(userDTO.getLastName());
             user.setEmail(userDTO.getEmail());
-            user.setPassword(userDTO.getPassword());
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }else {
@@ -142,10 +146,10 @@ public class UserServiceImpl  implements UserService {
         if (user == null) {
             throw new ResourceNotFoundException("This user is not registered!");
         }
-        if (!dto.getOldPassword().equals(user.getPassword())) {
+        if (!passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
             throw new ResourceNotFoundException("Current password is incorrect.");
         }
-        user.setPassword(dto.getNewPassword());
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         user.setNeedsPasswordReset(false);
         userRepository.save(user);
         return "Password has been reset successfully for " + user.getFirstName();
