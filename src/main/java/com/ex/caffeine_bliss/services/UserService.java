@@ -30,4 +30,6 @@ public interface UserService {
     UserDTO getUserByEmail(String email);
 
     String resetPassword(RequestResetPasswordDTO dto);
+
+    String resetPasswordFromLink(String email, String newPassword);
 }

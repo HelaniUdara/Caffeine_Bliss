@@ -4,4 +4,6 @@ import com.ex.caffeine_bliss.DTOs.ReceiptEmailDTO;
 
 public interface EmailService {
     void sendReceiptEmail(String to, String subject, ReceiptEmailDTO data, byte[] headerImg, byte[] footerImg);
+
+    void sendResetPasswordEmail(String email, String resetLink);
 }

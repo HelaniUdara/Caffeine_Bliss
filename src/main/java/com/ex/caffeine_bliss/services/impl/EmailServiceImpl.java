@@ -58,4 +58,26 @@ public class EmailServiceImpl implements EmailService {
             throw new com.ex.caffeine_bliss.exceptions.MessagingException("Email Failed!");
         }
     }
+
+    @Async
+    public void sendResetPasswordEmail(String to, String resetLink) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+            helper.setFrom(fromMail);
+            helper.setTo(to);
+            helper.setSubject("Reset Your Password - Caffeine Bliss");
+
+            Context context = new Context();
+            context.setVariable("resetLink", resetLink);
+            String htmlContent = templateEngine.process("forgot-password-email", context);
+            helper.setText(htmlContent, true);
+
+            mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            throw new com.ex.caffeine_bliss.exceptions.MessagingException("Email Failed!");
+        }
+    }
+
 }

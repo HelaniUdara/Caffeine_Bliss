@@ -136,7 +136,7 @@ public class UserServiceImpl  implements UserService {
         if(user != null){
             return modelMapper.map(user, UserDTO.class);
         }else {
-            throw new ResourceNotFoundException("This email does not exists");
+            throw new ResourceNotFoundException("This email is not registered!");
         }
     }
 
@@ -154,4 +154,17 @@ public class UserServiceImpl  implements UserService {
         userRepository.save(user);
         return "Password has been reset successfully for " + user.getFirstName();
     }
+
+    @Override
+    public String resetPasswordFromLink(String email, String newPassword) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new ResourceNotFoundException("This user is not registered!");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setNeedsPasswordReset(false);
+        userRepository.save(user);
+        return "Password has been reset successfully for " + user.getFirstName();
+    }
+
 }
